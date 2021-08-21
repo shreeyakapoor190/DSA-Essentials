@@ -1,4 +1,5 @@
 // Binary search works on a sorted array
+// Search space is mono-tonic [non-decreasing or non- increasing]
 // the given array is sorted either in ascending or descending order
 //  At each step , WE WILL DIVIDE THE ARRAY INTO TWO PARTS , EVERYTIME BY THE MIDDLE ELEMENT
 
