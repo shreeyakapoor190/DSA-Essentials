@@ -34,11 +34,11 @@ void rPrint(Node *head)
     rPrint(head->next);
 }
 // insertion at beginning of linked list
-Node *insertBegin(Node *head, int x) //O(1) time complexity
+Node *insertBegin(Node *head, int x) // O(1) time complexity
 {
     Node *temp = new Node(x);
     temp->next = head;
-    return temp; //here we are returning the new head of the list, therefore while calling
+    return temp; // here we are returning the new head of the list, therefore while calling
     // from main function, the head must get updated and hence here it is stored in head variable
     // to update it
 }
@@ -87,25 +87,63 @@ Node *delTail(Node *head)
         return head;
     }
 }
+Node *insertAtPosition(Node *head, int pos, int data)
+{
+    Node *curr = head;
+    int len = 1;
+    // inserting in beginning
+    if (pos == 1)
+    {
+        Node *in = new Node(data);
+        in->next = curr;
+        head = in;
+        return head;
+    }
+    // inserting in middle of linked list
+    while (curr != NULL)
+    {
+        len++;
+        if (len == pos)
+        {
+            Node *in = new Node(data);
+            in->next = curr->next;
+            curr->next = in;
+            return head;
+        }
+        curr = curr->next;
+    }
+    // inserting at the end coz linked list is now null
+    if (pos > len + 1)
+    {
+        cout << "position doesn't exist" << endl;
+        return NULL;
+    }
+    Node *in = new Node(data);
+    curr->next = in;
+    return head;
+}
 int main()
 {
     Node *head = new Node(10);
     head->next = new Node(20);
     head->next->next = new Node(30);
-    printList(head); //traversing and printing linked list
-    rPrint(head);    //recursive traversal in linked list
+    printList(head); // traversing and printing linked list
+    rPrint(head);    // recursive traversal in linked list
     cout << endl;
     cout << "insert at begin:   ";
-    head = insertBegin(head, 40); //insertion of 40 at beginning of linked list
+    head = insertBegin(head, 40); // insertion of 40 at beginning of linked list
     printList(head);
     cout << "insert at end:     ";
-    head = insertEnd(head, 50); //inserted 50 at end of linked list
+    head = insertEnd(head, 50); // inserted 50 at end of linked list
     printList(head);
     cout << "delete head node:      ";
     head = delHead(head);
     printList(head);
     cout << "delete tail node:     ";
     head = delTail(head);
+    printList(head);
+    cout << "insert at position:     ";
+    head = insertAtPosition(head, 6, 100);
     printList(head);
     return 0;
 }
