@@ -1,1 +1,2 @@
-cout << endl;
+if (head == NULL)
+    //     return n;

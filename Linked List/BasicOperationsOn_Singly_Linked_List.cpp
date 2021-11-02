@@ -122,6 +122,19 @@ Node *insertAtPosition(Node *head, int pos, int data)
     curr->next = in;
     return head;
 }
+int search(Node *head, int x) // iterative search in linked list O(n)-time complexity
+{
+    Node *curr = head;
+    int index = 0;
+    while (curr)
+    {
+        index++;
+        if (curr->data == x)
+            return index;
+        curr = curr->next;
+    }
+    return (-1);
+}
 int main()
 {
     Node *head = new Node(10);
@@ -137,13 +150,15 @@ int main()
     head = insertEnd(head, 50); // inserted 50 at end of linked list
     printList(head);
     cout << "delete head node:      ";
-    head = delHead(head);
+    head = delHead(head); // delete the 1st node of linked list
     printList(head);
     cout << "delete tail node:     ";
-    head = delTail(head);
+    head = delTail(head); // delete the last node of linked list
     printList(head);
     cout << "insert at position:     ";
-    head = insertAtPosition(head, 6, 100);
+    head = insertAtPosition(head, 2, 100); // insert at a given position
     printList(head);
+    int pos = search(head, 100); // searching index/position of 100 in linked list
+    cout << "Index of searched value is:      " << pos << endl;
     return 0;
 }
