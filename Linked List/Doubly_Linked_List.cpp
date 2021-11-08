@@ -46,16 +46,38 @@ Node *insertAtEnd(Node *head, int data)
 Node *revere(Node *head)
 {
     Node *curr = head;
-    Node *res = curr, *r, *s = res;
-    while (curr)
+    Node *res = new Node(0);
+    while (curr->next)
     {
-        r = curr->prev;
-        res->prev = curr->next;
-        res->next = r;
-        curr = curr->next;
-        res = res->next;
+        if (head == NULL || head->next == NULL) // blank linked list or single node case
+            return head;
+        Node *prev = NULL, *curr = head;
+        while (curr)
+        {
+            prev = curr->prev;       // prev is temporary variable used for swapping
+            curr->prev = curr->next; // swapping
+            curr->next = prev;       // swapping
+            curr = curr->prev;       // move curr backward coz curr's next has already been reversed
+        }
+        return prev->prev; // in 5 10 20 30 50, 30's prev will be 50 now, so returned 50 as the new head
     }
-    return s;
+    return head;
+}
+Node *delHead(Node *head)
+{
+    // time complexity = theta(1)
+    if (head == NULL) //  no node case
+        return NULL;
+    if (head->next == NULL) // single node case
+    {
+        delete head;
+        return NULL;
+    }
+    Node *temp = head;
+    head = head->next;
+    head->prev = NULL;
+    delete temp;
+    return head;
 }
 int main()
 {
@@ -76,5 +98,8 @@ int main()
     printList(head);
     cout << "reverse a doubly linked list:    ";
     head = revere(head);
+    printList(head);
+    cout << "delete head of a doubly linked list:    ";
+    head = delHead(head);
     printList(head);
 }

@@ -1,2 +1,2 @@
-if (head == NULL)
-    //     return n;
+Node *temp1 = new Node(20);
+    
