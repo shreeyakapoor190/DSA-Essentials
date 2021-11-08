@@ -79,6 +79,25 @@ Node *delHead(Node *head)
     delete temp;
     return head;
 }
+Node *delLast(Node *head)
+{
+    // time complexity= theta(n)
+    if (head == NULL) //  no node case
+        return NULL;
+    if (head->next == NULL) // single node case
+    {
+        delete head;
+        return NULL;
+    }
+    Node *temp = head;
+    while (temp->next->next)
+    {
+        temp = temp->next;
+    }
+    temp->next = NULL;
+    delete temp->next;
+    return head;
+}
 int main()
 {
     Node *head = new Node(10);
@@ -101,5 +120,8 @@ int main()
     printList(head);
     cout << "delete head of a doubly linked list:    ";
     head = delHead(head);
+    printList(head);
+    cout << "delete last node of a doubly linked list:    ";
+    head = delLast(head);
     printList(head);
 }
