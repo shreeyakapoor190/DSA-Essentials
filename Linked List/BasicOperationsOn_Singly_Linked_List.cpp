@@ -135,6 +135,42 @@ int search(Node *head, int x) // iterative search in linked list O(n)-time compl
     }
     return (-1);
 }
+
+Node *recReverse(Node *head) // recursively reversing a linked list
+{
+    // base case
+    if (head == NULL || head->next == NULL) // only one head node or no node
+    {
+        return head;
+    }
+    // otherwise
+    Node *smallHead = recReverse(head->next);
+    head->next->next = head;
+    head->next = NULL;
+    return smallHead;
+}
+Node *iterativeReverse(Node *head)
+{
+    // we create 3 variables prev(P), current(c) and temp(T) which will itreate thorugh the entire linked list
+    // and PCT will go on inside loop
+    // P will be null initially and C will be head and T will be next of head
+    // now we will first store the next of head in temp T so that it is not lost and then change the next of
+    //  head to prev(P) , now to shift the PCT we will do P=C and C=T
+    // when the entire linked list has been traversed the new head will be stored in the prev thus we make
+    // head= prev
+    Node *prev = NULL;
+    Node *curr = head;
+    Node *temp;
+    while (curr)
+    {
+        temp = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = temp;
+    }
+    head = prev;
+    return head;
+}
 int main()
 {
     Node *head = new Node(10);
@@ -160,5 +196,11 @@ int main()
     printList(head);
     int pos = search(head, 100); // searching index/position of 100 in linked list
     cout << "Index of searched value is:      " << pos << endl;
+    head = recReverse(head); // recursivley reverse the linked list
+    cout << "reversed list :  ";
+    printList(head);
+    head = iterativeReverse(head); // itratively reverse the linked list
+    cout << "reversed list :  ";
+    printList(head);
     return 0;
 }
