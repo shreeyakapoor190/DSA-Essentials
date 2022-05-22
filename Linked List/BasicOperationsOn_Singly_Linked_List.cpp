@@ -171,6 +171,41 @@ Node *iterativeReverse(Node *head)
     head = prev;
     return head;
 }
+
+Node *kReverse(Node *head, int k)
+{
+    // base case
+    if (head == NULL)
+        return NULL;
+
+    // reverse the first k nodes
+    Node *prev = NULL;
+    Node *curr = head;
+    Node *temp;
+    int count = 1;
+    // 1 2 3 4 5 6 7 8
+    while (curr && count <= k) // this entire part is same as the iterative reverse just we will include
+    // counter to count the no of nodes to be reversed each time
+    {
+        temp = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = temp;
+        count++;
+    }
+    // 3 2 1 (4 5 6 7 8)- in temp
+    // after the while loop ends the first set of k nodes has been reversed and the remaining is stored in
+    // temp. so we will check if temp is NULL of not, if not NULL then we will recursively call the kReverse
+    // function until the temp isn't NULL
+    // this way we will have sets of reversed nodes
+    // and we will connect them using head->next since
+    if (temp != NULL)
+    {
+        head->next = kReverse(temp, k); // in 3 2 1, 1 was the head, since we did not update it so we
+        // connect the next node set as head->next
+    }
+    return prev; // the new first node 3 will be in prev so we return prev
+}
 int main()
 {
     Node *head = new Node(10);
@@ -201,6 +236,9 @@ int main()
     printList(head);
     head = iterativeReverse(head); // itratively reverse the linked list
     cout << "reversed list :  ";
+    printList(head);
+    head = kReverse(head, 2);
+    cout << "reversing 2 nodes at a time: K reverse:  ";
     printList(head);
     return 0;
 }
