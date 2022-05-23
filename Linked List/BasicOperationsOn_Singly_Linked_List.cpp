@@ -206,6 +206,36 @@ Node *kReverse(Node *head, int k)
     }
     return prev; // the new first node 3 will be in prev so we return prev
 }
+bool detectLoop(Node *head)
+{
+    Node *slow = head;
+    Node *fast = head;
+    while (fast != NULL && fast->next != NULL)
+    {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast)
+            return true;
+    }
+    return false; // 0 means false and 1 means true
+}
+Node *moveLastToFirst(Node *head)
+{
+    Node *temp = head;
+    while (temp)
+    {
+        if (temp->next->next == NULL)
+        {
+            Node *newFirst = temp->next;
+            temp->next = NULL;
+            newFirst->next = head;
+            head = newFirst;
+            break;
+        }
+        temp = temp->next;
+    }
+    return head;
+}
 int main()
 {
     Node *head = new Node(10);
@@ -239,6 +269,13 @@ int main()
     printList(head);
     head = kReverse(head, 2);
     cout << "reversing 2 nodes at a time: K reverse:  ";
+    printList(head);
+    cout << " Is there a loop in linked list? ";
+    cout << detectLoop(head);
+    cout << endl;
+    // printList(head);
+    cout << "moved last to first: ";
+    head = moveLastToFirst(head);
     printList(head);
     return 0;
 }
