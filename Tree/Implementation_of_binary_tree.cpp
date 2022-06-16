@@ -117,6 +117,28 @@ int diameter(Node *root) // time complexity O(N^2)- at every node we are calcula
 int diameterOptimized(Node *root) // time complexity O(N)
 {
 }
+
+vector<int> diagonalTraversal(Node *root)
+{
+    queue<Node *> q;
+    vector<int> res;
+    if (!root)
+        return res;
+    q.push(root);
+    while (!q.empty())
+    {
+        Node *temp = q.front();
+        q.pop();
+        while (temp)
+        {
+            if (temp->left)
+                q.push(temp->left);
+            res.push_back(temp->key);
+            temp = temp->right;
+        }
+    }
+    return res;
+}
 int main()
 {
     Node *root = new Node(10);
@@ -141,4 +163,10 @@ int main()
     cout << endl;
     cout << "diameter of tree: " << diameter(root) << endl;
     cout << "diameter of tree: " << diameterOptimized(root) << endl;
+    vector<int> res = diagonalTraversal(root);
+    cout << "diagonal traversal:  ";
+    for (int i = 0; i < res.size(); i++)
+    {
+        cout << res[i] << "    ";
+    }
 }
