@@ -1,6 +1,7 @@
-// O(n) solution for finding maximum sum of
-// a subarray of size k
-// here the window size is specified
+// FIXED WINDOW SIZE
+//  O(n) solution for finding maximum sum of
+//  a subarray of size k
+//  here the window size is specified
 #include <iostream>
 using namespace std;
 
